@@ -1,7 +1,7 @@
 What is it?
 -----------
 Solution intend to solve the task of grouping together log file sentences which share the same behavior pattern and write to a file. Pattern can contains any number of words. Output file will contain as many rows of "dd-mm-yyyy hh:mm:ss Name pattern" as in the source file.
-For Brief information about the project - user UML diagram [uml](https://github.com/EreRoma/loomsystemsHomeTask/blob/master/loomsystems_UML.pdf).
+For Brief information about the project - user UML diagram [uml](https://github.com/EreRoma/loomsystemsHomeTask/blob/master/LoomSystems_task_UML.pdf).
 The original task you can find by link [task](https://github.com/EreRoma/loomsystemsHomeTask/blob/master/developer_task.pdf).
 
 Input file format:
