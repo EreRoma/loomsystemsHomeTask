@@ -13,3 +13,8 @@ Output file format:
 dd-mm-yyyy hh:mm:ss Name pattern  
 The pattern is: [X] pattern  
 The changing word was: Name1, Name2 ...  
+
+How to use
+----------------
+Create instance of ILogFileProcessor, it's constructor recieve instanses of IWriteLogResults(String inputFilename), IWriteLogResults(String outputFilename), IWriteLogResults(String outputErrorFileName), IReaderLog, and then execute method ILogFileProcessor.processLogs().  
+All lines, that vasn't be validate will be write to outputErrorFileName.
