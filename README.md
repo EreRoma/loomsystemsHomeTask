@@ -17,5 +17,6 @@ The changing word was: Name1, Name2 ...
 How to use
 ----------------
 Create instance of ILogFileProcessor, it's constructor recieve instanses of IWriteLogResults(String inputFilename), IWriteLogResults(String outputFilename), IWriteLogResults(String outputErrorFileName), IReaderLog, and then execute method ILogFileProcessor.processLogs().  
+All data will be taken from **inputFilename**.  
 All lines that are validated will be written to **outputFilename**.  
 All lines that are not validated will be written to **outputErrorFileName**.
