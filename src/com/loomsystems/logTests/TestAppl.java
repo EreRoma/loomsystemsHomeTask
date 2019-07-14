@@ -18,8 +18,10 @@ public class TestAppl {
     private static final String OUTPUT_PROCESSED_LOG_FILE = "processedLog.log";
     private static final String CORRECT_INPUT_LINE = "01-01-2017 19:45:00 Naomi is getting into the car";
     private static final String INCORRECT_INPUT_LINE = "01!01!2017 19:45:00 Naomi is getting into the car";
+    static final String OUTPUT_ERROR_LINE_FILE = "errorLines.log";
 
     WriteLogResults writeLogResults;
+    WriteLogResults writeErrorLines;
     LogsProcessor logsProcessor;
     ReaderLog readerLog;
     LogFileProcessor logFileProcessor;
@@ -28,9 +30,10 @@ public class TestAppl {
     @BeforeEach
     void setUp() {
         this.writeLogResults = new WriteLogResults(OUTPUT_PROCESSED_LOG_FILE);
+        this.writeErrorLines = new WriteLogResults(OUTPUT_ERROR_LINE_FILE);
         this.logsProcessor = new LogsProcessor();
         this.readerLog = new ReaderLog(INPUT_LOG_FILE);
-        this.logFileProcessor = new LogFileProcessor(writeLogResults, logsProcessor, readerLog);
+        this.logFileProcessor = new LogFileProcessor(writeLogResults, writeErrorLines, logsProcessor, readerLog);
         simpleList.add("first word");
         simpleList.add("second word");
     }
@@ -53,23 +56,23 @@ public class TestAppl {
 
     @Test()
     public void testLogFileProcessor() {
-        assertThrows(NullPointerException.class, () -> new LogFileProcessor(null, this.logsProcessor,
+        assertThrows(NullPointerException.class, () -> new LogFileProcessor(null, writeErrorLines, this.logsProcessor,
                 this.readerLog));
-        assertThrows(NullPointerException.class, () -> new LogFileProcessor(writeLogResults, null,
+        assertThrows(NullPointerException.class, () -> new LogFileProcessor(writeLogResults, writeErrorLines, null,
                 this.readerLog));
-        assertThrows(NullPointerException.class, () -> new LogFileProcessor(writeLogResults, this.logsProcessor,
+        assertThrows(NullPointerException.class, () -> new LogFileProcessor(writeLogResults, writeErrorLines, this.logsProcessor,
                 null));
     }
 
     @Test
     public void testLogsProcessor() throws IOException {
         logsProcessor.processLine(CORRECT_INPUT_LINE);
-        assertEquals(1, logsProcessor.getPatternMap().size()); // Check count of unique patterns
-        assertEquals(0, logsProcessor.getWrongFormatLines().size()); // Check count of wrong lines
+        assertEquals(1, logsProcessor.getPatternMap().size());
+        assertEquals(0, logsProcessor.getWrongFormatLines().size());
         logsProcessor.processLine(INCORRECT_INPUT_LINE);
-        assertEquals(1, logsProcessor.getPatternMap().size()); // Check count of unique patterns
-        assertEquals(1, logsProcessor.getWrongFormatLines().size()); // Check count of wrong lines
-        assertTrue(logsProcessor.getResults().get(0).equals(CORRECT_INPUT_LINE)); //Check current output
-        assertTrue(logsProcessor.getWrongFormatLines().get(0).equals(INCORRECT_INPUT_LINE));//Check current wright to WrongFormatLines
+        assertEquals(1, logsProcessor.getPatternMap().size());
+        assertEquals(1, logsProcessor.getWrongFormatLines().size());
+        assertTrue(logsProcessor.getResults().get(0).equals(CORRECT_INPUT_LINE));
+        assertTrue(logsProcessor.getWrongFormatLines().get(0).equals(INCORRECT_INPUT_LINE));
     }
 }
